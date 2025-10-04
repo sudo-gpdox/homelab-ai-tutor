@@ -180,9 +180,9 @@ cat ~/.config/Code/User/settings.json # Cline config
 
 ## Next Steps
 
-### From Your Laptop
+### From a Laptop
 
-1. Install VS Code a  laptop
+1. Install VS Code on a laptop
 2. Install "Remote - SSH" extension
 3. Connect to: `gp-admin@100.93.10.44` (via Tailscale)
 4. Open Cline in VS Code
