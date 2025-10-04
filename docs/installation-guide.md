@@ -1,4 +1,3 @@
-
 # Installation Guide - Homelab AI Tutor
 
 ## Prerequisites
@@ -8,11 +7,6 @@
 - Internet connection
 
 ---
-## Git Commit
-
-- git add docs/installation-guide.md
-- git commit -m "Clean up installation guide with proper step numbering"
-- git push origin main
 
 ## Step 1: Install Ollama
 
@@ -69,36 +63,35 @@ code --version
 
 ---
 
-
 ## Step 4: Install Cline Extension
 
 Install Cline via VS Code CLI:
 
 ```bash
-
 # Install Cline extension
-
 code --install-extension saoudrizwan.claude-dev
 
-# Verify installation
-
+# Verify installation (extension ID still uses old name)
 code --list-extensions | grep claude
+```
 
 ---
-
 
 ## Step 5: Configure Cline for Ollama
 
 Create VS Code settings for Cline:
 
+```bash
 # Create settings directory
-
 mkdir -p ~/.config/Code/User
 
 # Create settings file
-
 nano ~/.config/Code/User/settings.json
+```
 
+Add this configuration:
+
+```json
 {
   "cline.apiProvider": "ollama",
   "cline.ollamaBaseUrl": "http://127.0.0.1:11434",
@@ -106,40 +99,47 @@ nano ~/.config/Code/User/settings.json
   "cline.autoApprove": false,
   "cline.alwaysAllowReadOnly": true
 }
+```
+
+---
 
 ## Step 6: Install Node.js and MCP Server
 
-# Install Node.js 20.x
+Install Node.js for MCP server:
 
+```bash
+# Install Node.js 20.x
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
 
 # Verify installation
-
 node --version  # Should show v20.x
 npm --version   # Should show v10.x
 
 # Install MCP filesystem server globally
-
 sudo npm install -g @modelcontextprotocol/server-filesystem
 
 # Verify MCP server
-
 which mcp-server-filesystem
+```
+
+---
 
 ## Step 7: Configure MCP for Obsidian
 
-# Configure MCP to access Obsidian vault:
+Configure MCP to access Obsidian vault:
 
+```bash
 # Create MCP config directory
-
 mkdir -p ~/.config/cline/mcp
 
 # Create config file
-
 nano ~/.config/cline/mcp/config.json
+```
 
+Add this configuration:
 
+```json
 {
   "mcpServers": {
     "filesystem": {
@@ -149,42 +149,54 @@ nano ~/.config/cline/mcp/config.json
     }
   }
 }
+```
 
+Test the MCP server:
 
-## Test the MCP server:
-
+```bash
 # Test MCP server (press Ctrl+C to stop)
-
 mcp-server-filesystem /home/gp-admin/Documents/ClaudeVault
+```
+
+---
 
 ## Testing the Complete Setup
 
-# Test Ollama
+Verify all components are working:
 
+```bash
+# Test Ollama
 ollama run llama3.2:3b "Hello, test"
 
 # Verify all components
+code --version                        # VS Code
+node --version                        # Node.js
+which mcp-server-filesystem           # MCP server
+cat ~/.config/cline/mcp/config.json   # MCP config
+cat ~/.config/Code/User/settings.json # Cline config
+```
 
-code --version          # VS Code
-node --version          # Node.js
-which mcp-server-filesystem  # MCP server
-cat ~/.config/cline/mcp/config.json  # MCP config
-cat ~/.config/Code/User/settings.json  # Cline config
+---
 
 ## Next Steps
 
-From Your Laptop
+### From Your Laptop
 
-Install VS Code on laptop
-Install "Remote - SSH" extension
-Connect to: gp-admin@100.93.10.44 (via Tailscale)
-Open Cline in VS Code
-Start using AI tutor with Obsidian integration
+1. Install VS Code a  laptop
+2. Install "Remote - SSH" extension
+3. Connect to: `gp-admin@100.93.10.44` (via Tailscale)
+4. Open Cline in VS Code
+5. Start using AI tutor with Obsidian integration!
 
-# Migration to P520
-# When ready to deploy on P520:
+### Migration to P520
 
+When ready to deploy on P520:
+
+```bash
 git clone https://github.com/sudo-gpdox/homelab-ai-tutor.git
 cd homelab-ai-tutor
-
 # Follow this guide from Step 1
+```
+
+---
+
