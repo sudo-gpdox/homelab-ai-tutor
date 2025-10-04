@@ -1,0 +1,27 @@
+# Environment variables
+.env
+*.env
+!.env.example
+
+# Ollama data
+ollama/
+
+# VS Code workspace
+.vscode/
+*.code-workspace
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*~
+
+# Temporary files
+tmp/
+temp/
